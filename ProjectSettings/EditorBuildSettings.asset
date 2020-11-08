@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/bubblepop.unity
-    guid: 2f86258a95974af499c42a88c643ed33
+    path: Assets/BubbleWrap/Scenes/Init.unity
+    guid: b781b1009d869fa4a9df33e4c7f68664
+  - enabled: 1
+    path: Assets/BubbleWrap/Scenes/Main.unity
+    guid: 847b4f241564f5c4a821a152ec6cc205
   m_configObjects: {}

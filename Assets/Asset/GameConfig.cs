@@ -14,6 +14,6 @@ public class GameConfig : ScriptableObject
     [SerializeField] public float ySpaceMultiplier = 1;
 
     [SerializeField] public float xValue = 10;
-   [SerializeField] public float yValue = 9;
+    [SerializeField] public float yValue = 9;
 
 }

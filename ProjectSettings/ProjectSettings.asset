@@ -246,8 +246,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: bubbleKeyStore.keystore'
-  AndroidKeyaliasName: bubble
+  AndroidKeystoreName: '{inproject}: UpdateKeyStore.keystore'
+  AndroidKeyaliasName: band
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
