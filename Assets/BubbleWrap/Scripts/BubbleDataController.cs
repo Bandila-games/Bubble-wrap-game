@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class BubbleDataController : MonoBehaviour
 {
-    [SerializeField] private PlayerBubbleGameData playerData;
+    [SerializeField] public PlayerBubbleGameData playerData;
     [SerializeField] private PlayerWalletData playerWalletData;
     [SerializeField] private PlayerCollectableData playerCollectableData;
 

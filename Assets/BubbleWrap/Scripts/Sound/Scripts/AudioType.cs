@@ -16,7 +16,8 @@ public enum AudioLibrary
 
     SFX_BubblePop_1,
     SFX_BubblePop_2,
-    SFX_BubblePop_3
+    SFX_BubblePop_3,
+    SFX_MILESTONE
 
     #endregion
 }

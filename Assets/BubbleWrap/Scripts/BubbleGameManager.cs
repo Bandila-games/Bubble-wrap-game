@@ -12,6 +12,9 @@ namespace Bunity
         [SerializeField] public BubbleDataController dataController = null;
         [SerializeField] private BubbleUIController uiController;
 
+        //Test
+        [SerializeField] public PlayerBubbleGameData data;
+
         private void Awake()
         {
           
@@ -19,8 +22,9 @@ namespace Bunity
 
         private void Start()
         {
-            if (uiController == null) { GameObject.Find("BubbleGameUI").GetComponent<BubbleUIController>(); }
-
+            if (uiController == null) {uiController = GameObject.Find("BubbleGameUI").GetComponent<BubbleUIController>(); }
+            uiController.HideGameElements(false);
+            uiController.SetTotalCounterTxt(data.totalBubblesPopped.ToString());
 
             uiController.AddListenerToPlayButton(() => { 
                 StartCoroutine(InitializeGame(() => { })
@@ -39,7 +43,9 @@ namespace Bunity
                }
                StartCoroutine(bubbleController.InitializeController());
 
-            },()=> { uiController.HideMenu(false); });
+            },()=> { uiController.HideMenu(false);
+                uiController.HideGameElements(true);
+            });
             
 
 

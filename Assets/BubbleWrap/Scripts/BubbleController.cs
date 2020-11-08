@@ -17,6 +17,8 @@ public class BubbleController : MonoBehaviour
        // if(data == null) { data = }
 
         data.currentBubblePopped = 0;
+        uiController.AddListenerToResetButton(ResetBubble);
+
         CreateBubbles();
        // Debug.Log("YEYE");
         yield return null; 
@@ -58,10 +60,23 @@ public class BubbleController : MonoBehaviour
         }
     }
 
+    public void ResetBubble()
+    {
+        foreach(Bubble b in bubbles)
+        {
+            b.ResetBubble();
+        }
+    }
+
     public void AddPoint()
     {
         data.currentBubblePopped += 1;
         data.totalBubblesPopped += 1;
-        uiController.SetTapCounterTxt("Score: "+ data.currentBubblePopped.ToString());
+        if(data.currentBubblePopped%10 == 0 )
+        {
+            uiController.ShowMileStoneanimation();
+        }
+
+        uiController.SetTapCounterTxt(data.currentBubblePopped.ToString());
     }
 }
