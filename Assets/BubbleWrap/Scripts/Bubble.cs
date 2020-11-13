@@ -97,7 +97,7 @@ public class Bubble : MonoBehaviour
     private IEnumerator decompressAnimation()
     {
        
-        Debug.Log(transform.localScale.y + "MIN:" + config.minSize);
+
         while(transform.localScale.y > config.minSize && transform.localScale.x > config.minSize)
         {
             Debug.Log("CALLME");
