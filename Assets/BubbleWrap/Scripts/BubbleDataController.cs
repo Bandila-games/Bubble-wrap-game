@@ -8,11 +8,10 @@ public class BubbleDataController : MonoBehaviour
     [SerializeField] public PlayerBubbleGameData playerData;
     [SerializeField] private PlayerWalletData playerWalletData;
     [SerializeField] private PlayerCollectableData playerCollectableData;
-
+    [SerializeField] private BubbleGameConfig gameConfig;
 
     public IEnumerator EnumeratorInitializeData(UnityAction action)
     {
-
 
         action?.Invoke();
         yield return null;

@@ -32,7 +32,7 @@ public class Sceneloader : MonoBehaviour
         Debug.Log("TEST");
     }
 
-    public IEnumerator ChangeScene(int sceneID,float fadeInTime = 0, float fadeOutTime = 0, UnityAction action = null, UnityAction middleAction = null)
+    public IEnumerator ChangeScene(int sceneID,float fadeInTime = 0, float fadeOutTime = 0, UnityAction endAction = null, UnityAction middleAction = null)
     {
         if(fadeInTime == 0) { fadeInTime = totalFadeTime; }
         if(fadeOutTime == 0) { fadeOutTime = totalFadeTime; }
@@ -40,7 +40,7 @@ public class Sceneloader : MonoBehaviour
         LeanTween.alpha(blackOverlay.rectTransform, 1, fadeOutTime).setOnComplete(() => {
             middleAction?.Invoke();
             StartCoroutine(LoadScene(sceneID, () => {
-                LeanTween.alpha(blackOverlay.rectTransform, 0, fadeInTime).setOnComplete(()=> { action?.Invoke(); });
+                LeanTween.alpha(blackOverlay.rectTransform, 0, fadeInTime).setOnComplete(()=> { endAction?.Invoke(); });
             }));
         });
 

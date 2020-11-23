@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07fb00f17c710c42a73adc1b403fdb6, type: 3}
   m_Name: config
   m_EditorClassIdentifier: 
-  maxSize: 1.15
-  minSize: 1
+  maxSize: 0.65
+  minSize: 0.5
   popSpeedMultiplier: 40
   xSpaceMultiplier: 0.87
   ySpaceMultiplier: 0.87

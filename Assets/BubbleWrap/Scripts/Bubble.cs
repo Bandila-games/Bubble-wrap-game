@@ -9,12 +9,14 @@ public class Bubble : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer = null;
     [SerializeField] private BubbleTheme bubbleThemeConfig;
+    [SerializeField] private Collider collider;
 
     bool isPopped = false;
     bool isDecompressing = false;
     bool isTapped = false;
     UnityAction AddPointAction;
     GameConfig config;
+    public BubbleGameConfig gameconfig;
 
     public void InitializeBubble(UnityAction action, GameConfig config)
     {
@@ -39,12 +41,16 @@ public class Bubble : MonoBehaviour
         if (transform.localScale.y >= config.maxSize && isPopped == false)
         {
             AddPointAction?.Invoke();
-            Soundplayer.PlayAudio((AudioLibrary)Random.Range(0,4));
+            if (gameconfig.isSoundActive)
+            { Soundplayer.PlayAudio((AudioLibrary)Random.Range(1, 4)); }
             spriteRenderer.sprite = bubbleThemeConfig.poppedSprite;
             isDecompressing = true;
             StartCoroutine(decompressAnimation());
             //transform.localScale = new Vector3(1, 1, 1);
-            // Handheld.Vibrate();
+
+            
+
+            if(gameconfig.isVibrateOn) Handheld.Vibrate();
           
             isPopped = true;
         }
@@ -53,10 +59,9 @@ public class Bubble : MonoBehaviour
 
             if (isTapped)
             {
-                Debug.Log("On");
+
                 if (transform.localScale.y <= config.maxSize && transform.localScale.x <= config.maxSize)
                 {
-                    Debug.Log("Expand");
                     transform.localScale += new Vector3(0.05f, 0.05f, 0.05f) * Time.deltaTime * config.popSpeedMultiplier;
                 }
 
@@ -75,10 +80,10 @@ public class Bubble : MonoBehaviour
         {
             if (isTapped )
             {
-                Debug.Log("On2");
+
                 if (transform.localScale.y <= config.maxSize && transform.localScale.x <= config.maxSize)
                 {
-                    Debug.Log("Expand");
+                  
                     transform.localScale += new Vector3(0.05f, 0.05f, 0.05f) * Time.deltaTime * config.popSpeedMultiplier;
                 }
 
@@ -95,16 +100,14 @@ public class Bubble : MonoBehaviour
     }
 
     private IEnumerator decompressAnimation()
-    {
-       
-
+    {      
         while(transform.localScale.y > config.minSize && transform.localScale.x > config.minSize)
         {
-            Debug.Log("CALLME");
+
             transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f) * Time.deltaTime * config.popSpeedMultiplier;
             yield return null;
         }
-        Debug.Log("Lol");
+
         isDecompressing = false;
         yield return null;
     }
@@ -129,6 +132,12 @@ public class Bubble : MonoBehaviour
     private void OnMouseExit()
     {
         isTapped = false;
+    }
+
+    public void Setactive(bool isActive)
+    {
+        isTapped = false;
+        collider.enabled = isActive;
     }
 
 }

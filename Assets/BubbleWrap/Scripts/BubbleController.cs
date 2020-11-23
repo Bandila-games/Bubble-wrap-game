@@ -17,6 +17,7 @@ public class BubbleController : MonoBehaviour
        // if(data == null) { data = }
 
         data.currentBubblePopped = 0;
+        uiController.SetTapCounterTxt("0");
         uiController.AddListenerToResetButton(ResetBubble);
 
         CreateBubbles();
@@ -46,7 +47,7 @@ public class BubbleController : MonoBehaviour
                     y * config.ySpaceMultiplier,
                     0), Quaternion.identity);
                 buble.InitializeBubble(AddPoint,config);
-                LeanTween.rotateZ(buble.gameObject, Random.Range(0, 360), 0);
+                //LeanTween.rotateZ(buble.gameObject, Random.Range(0, 360), 0);
                 bubbles.Add(buble);
             }
         }
@@ -67,16 +68,28 @@ public class BubbleController : MonoBehaviour
             b.ResetBubble();
         }
     }
+    
+    public void PauseBubbles(bool isActive)
+    {
+        foreach(Bubble b in bubbles)
+        {
+            b.Setactive(isActive);
+        }
+    }
 
     public void AddPoint()
     {
         data.currentBubblePopped += 1;
         data.totalBubblesPopped += 1;
-        if(data.currentBubblePopped%10 == 0 )
+
+        PlayerPrefs.SetInt(DataNames.TOTAL_TAP_COUNT.ToString(), (int)data.totalBubblesPopped);
+
+        if (data.currentBubblePopped%10 == 0 )
         {
             uiController.ShowMileStoneanimation();
         }
 
+        Debug.Log("HEHE");
         uiController.SetTapCounterTxt(data.currentBubblePopped.ToString());
     }
 }

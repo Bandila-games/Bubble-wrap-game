@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0489eef82f994c4a97451262658480e, type: 3}
-  m_Name: NormalBubbleTheme
+  m_Script: {fileID: 11500000, guid: da9c031d8f2c5da4598aa69e98f739a2, type: 3}
+  m_Name: bubble game config
   m_EditorClassIdentifier: 
-  unPoppedSprite: {fileID: 21300000, guid: 89ec83d1875efcc4ba863c414a5d5ab7, type: 3}
-  poppedSprite: {fileID: 21300000, guid: 985276d2ad5c84c4fa3a7c0e0f0231fe, type: 3}
+  isSoundActive: 1
+  isVibrateOn: 1

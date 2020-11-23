@@ -11,6 +11,7 @@ public class BubbleUIController : MonoBehaviour
 
     [SerializeField] public Button playButton = null;
     [SerializeField] public Button resetButton = null;
+    [SerializeField] public Button homeButton = null;
 
     [SerializeField] public RectTransform menu = null;
     [SerializeField] public RectTransform gameUI = null;
@@ -19,6 +20,29 @@ public class BubbleUIController : MonoBehaviour
     //TEST
 
     [SerializeField] MileStoneAnimation animationPrefab;
+
+    [SerializeField] BubbleGameSettings settings;
+
+    private static BubbleUIController _ui;
+    public static BubbleUIController ui
+    {
+        get { return _ui; }
+        set { _ui = value; }
+    }
+
+    public void Start()
+    {
+        if (ui == null)
+        {
+            ui = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+
+    }
 
     public void SetTapCounterTxt(string txt)
     {
@@ -36,11 +60,19 @@ public class BubbleUIController : MonoBehaviour
         playButton.onClick.AddListener(action);
     }
 
+    public void AddListenerToHomeButton(UnityAction action)
+    {
+        homeButton.onClick.RemoveAllListeners();
+        homeButton.onClick.AddListener(action);
+    }
+
     public void AddListenerToResetButton(UnityAction action)
     {
         resetButton.onClick.RemoveAllListeners();
         resetButton.onClick.AddListener(action);
     }
+
+    
     public void AddListenerToMenuButton(UnityAction action)
     {
         Debug.Log("Not yet implemented");
