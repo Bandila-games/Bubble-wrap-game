@@ -24,12 +24,12 @@ namespace Bunity
 
         private void Awake()
         {
-          
+       
         }
 
         private void Start()
         {
-           
+          
 
             if (uiController == null) {uiController = GameObject.Find("BubbleGameUI").GetComponent<BubbleUIController>(); }
             uiController.HideGameElements(false);
@@ -46,6 +46,7 @@ namespace Bunity
                 StartCoroutine(ReturnToMenu(()=> {
                     data.totalBubblesPopped = (uint)PlayerPrefs.GetInt(DataNames.TOTAL_TAP_COUNT.ToString());
                     uiController.SetTotalCounterTxt(data.totalBubblesPopped.ToString());
+                   
                 }));
             });
 
@@ -58,6 +59,7 @@ namespace Bunity
                 Destroy(this.gameObject);
             }
 
+            StartCoroutine(loadAds());
             // Sceneloader.Instance.Test();
         }
 
@@ -108,6 +110,23 @@ namespace Bunity
         public void OnApplicationQuit()
         {
             
+        }
+
+        public IEnumerator loadAds()
+        {
+            yield return new WaitForSeconds(5);
+            AdmobAds.instance.requestInterstital();
+            AdmobAds.instance.loadRewardVideo();
+            AdmobAds.instance.reqBannerAd();
+        }
+
+        public void ShowTestInts()
+        {
+            AdmobAds.instance.ShowInterstitialAd();
+        }
+        public void ShowTestRewardVid()
+        {
+            AdmobAds.instance.showVideoAd();
         }
     }
 }
