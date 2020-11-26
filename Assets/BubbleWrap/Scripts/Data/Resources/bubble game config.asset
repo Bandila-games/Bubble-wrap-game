@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: bubble game config
   m_EditorClassIdentifier: 
   isSoundActive: 1
-  isVibrateOn: 1
+  isVibrateOn: 0

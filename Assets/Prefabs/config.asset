@@ -17,5 +17,5 @@ MonoBehaviour:
   popSpeedMultiplier: 40
   xSpaceMultiplier: 0.87
   ySpaceMultiplier: 0.87
-  xValue: 7
-  yValue: 12
+  xValue: 5
+  yValue: 9

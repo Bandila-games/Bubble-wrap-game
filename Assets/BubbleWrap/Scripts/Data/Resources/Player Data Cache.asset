@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_name: 
   uid: 0
-  totalBubblesPopped: 0
-  currentBubblePopped: 0
+  totalBubblesPopped: 1915
+  currentBubblePopped: 136

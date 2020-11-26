@@ -32,8 +32,20 @@ public class Bubble : MonoBehaviour
     {
         isPopped = false;
         isTapped = false;
-        transform.localScale = new Vector3(config.minSize, config.minSize);
+        transform.localScale = new Vector3(config.minSize, config.minSize); 
         spriteRenderer.sprite = bubbleThemeConfig.unPoppedSprite;
+    }
+
+    public IEnumerator EnumeratorResetBubble()
+    {
+        isPopped = false;
+        isTapped = false;
+        transform.localScale = new Vector3(config.minSize, config.minSize);
+         LeanTween.color(this.gameObject, new Color(255, 255, 255, 125), 1f).setOnComplete(()=> {
+             LeanTween.color(this.gameObject, new Color(255, 255, 255, 255), 0.25f);
+         });              
+        spriteRenderer.sprite = bubbleThemeConfig.unPoppedSprite;
+        yield return null;
     }
 
     public void refresh()
