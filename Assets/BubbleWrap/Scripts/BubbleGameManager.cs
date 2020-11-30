@@ -14,6 +14,7 @@ namespace Bunity
 
         //Test
         [SerializeField] public PlayerBubbleGameData data;
+        [SerializeField] public BubbleGameConfig gameConfig;
 
        // [SerializeField] public Canvas debugcanvas = null;
        // [SerializeField] public Transform debugImage = null;
@@ -183,7 +184,7 @@ namespace Bunity
 
         public void ClickSoundPlay()
         {
-            Sound.Soundplayer.PlayAudio(AudioLibrary.SFX_BUTTON_CLICK);
+          if(gameConfig.isSoundActive) Sound.Soundplayer.PlayAudio(AudioLibrary.SFX_BUTTON_CLICK);
         }
     }
 }
