@@ -180,6 +180,11 @@ namespace Bunity
         {
             AdmobAds.instance.showVideoAd();
         }
+
+        public void ClickSoundPlay()
+        {
+            Sound.Soundplayer.PlayAudio(AudioLibrary.SFX_BUTTON_CLICK);
+        }
     }
 }
 
