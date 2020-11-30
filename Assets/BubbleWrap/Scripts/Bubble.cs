@@ -32,7 +32,7 @@ public class Bubble : MonoBehaviour
     {
         isPopped = false;
         isTapped = false;
-        transform.localScale = new Vector3(config.minSize, config.minSize); 
+        transform.localScale = new Vector3(config.minSize, config.minSize,transform.localScale.z); 
         spriteRenderer.sprite = bubbleThemeConfig.unPoppedSprite;
     }
 

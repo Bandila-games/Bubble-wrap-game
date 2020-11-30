@@ -253,3 +253,4 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: ae725bab7a51f984393b00c750d40568, type: 2}
   data: {fileID: 11400000, guid: bf4f07a5731a5304987580095127d6bd, type: 2}
   uiController: {fileID: 0}
+  waitTime: 0.02

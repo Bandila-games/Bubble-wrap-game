@@ -63,12 +63,17 @@ public class BubbleController : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Update()
     {
-        foreach(Bubble b in bubbles)
+        foreach (Bubble b in bubbles)
         {
             b.refresh();
         }
+
+    }
+    public void myReset()
+    {
+        StartCoroutine(ResetBubbleGame());
     }
 
     public void ResetBubble()
@@ -157,5 +162,6 @@ public class BubbleController : MonoBehaviour
         yield return null;
     }
 
-   
+  
+
 }
