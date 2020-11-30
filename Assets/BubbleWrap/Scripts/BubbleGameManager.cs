@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.UI;
 
 namespace Bunity
 {
@@ -14,6 +14,11 @@ namespace Bunity
 
         //Test
         [SerializeField] public PlayerBubbleGameData data;
+
+       // [SerializeField] public Canvas debugcanvas = null;
+       // [SerializeField] public Transform debugImage = null;
+       // [SerializeField] public Text debugText = null;
+       
 
         private static BubbleGameManager _gameManager;
         private static BubbleGameManager gameManager
@@ -29,7 +34,8 @@ namespace Bunity
 
         private void Start()
         {
-          
+         //   debugcanvas.sortingOrder = -1;
+         //   debugImage.gameObject.SetActive(true);
 
             if (uiController == null) {uiController = GameObject.Find("BubbleGameUI").GetComponent<BubbleUIController>(); }
             uiController.HideGameElements(false);
@@ -59,8 +65,46 @@ namespace Bunity
                 Destroy(this.gameObject);
             }
 
+        //    AdmobAds.instance.OnAdFailedToLoad += Instance_OnAdFailedToLoad;
+        //    AdmobAds.instance.OnAdLoaded += Instance_OnAdLoaded;
+        //    AdmobAds.instance.OnAdStarted += Instance_OnAdStarted;
+       //     AdmobAds.instance.OnAdLoad += Instance_OnAdLoad;
+
             StartCoroutine(loadAds());
             // Sceneloader.Instance.Test();
+        }
+
+        private void Instance_OnAdLoad(object sender, AdLoadEventArgs e)
+        {
+            StartCoroutine(debugAds(e.Message));
+        }
+
+        private void Instance_OnAdStarted(object sender, System.EventArgs e)
+        {
+            StartCoroutine(debugAds("Add started succesfully"));
+        }
+
+        private void Instance_OnAdLoaded(object sender, System.EventArgs e)
+        {
+            StartCoroutine(debugAds("Ad loaded succesfully"));
+        }
+
+        private void Instance_OnAdFailedToLoad(object sender, GoogleMobileAds.Api.AdFailedToLoadEventArgs e)
+        {
+            StartCoroutine(debugAds(e.Message));
+        }
+
+        public void ShowDebug(bool isShow)
+        {
+           // debugcanvas.sortingOrder = isShow ? 3 : -1;
+        }
+
+        IEnumerator debugAds(string message)
+        {
+
+          //  Text mt = Instantiate(debugText, debugImage);
+           // mt.text = message;
+            yield return null;
         }
 
         private IEnumerator InitializeGame(UnityAction action)
@@ -114,11 +158,19 @@ namespace Bunity
 
         public IEnumerator loadAds()
         {
-            yield return new WaitForSeconds(5);
-            AdmobAds.instance.requestInterstital();
-            AdmobAds.instance.loadRewardVideo();
-            AdmobAds.instance.reqBannerAd();
+         
+            while(true)
+            {
+
+                yield return new WaitForSeconds(30);
+                AdmobAds.instance.requestInterstital();
+                AdmobAds.instance.loadRewardVideo();
+                AdmobAds.instance.reqBannerAd();                
+
+            }
         }
+
+
 
         public void ShowTestInts()
         {

@@ -5,7 +5,7 @@ using System;
 
 public class AdmobAds : MonoBehaviour
 {
-    string GameID = "";
+    string GameID = "ca-app-pub-2461583365581204~8805575646";
 
     // Sample ads : replace them with the actual ad ids
     string bannerAdId = "ca-app-pub-2461583365581204/9989814744";
@@ -36,7 +36,9 @@ public class AdmobAds : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MobileAds.Initialize(GameID);
+       // MobileAds.Initialize(GameID);
+
+        MobileAds.Initialize((callback) => {  });
 
     }
 
@@ -52,6 +54,7 @@ public class AdmobAds : MonoBehaviour
         rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
         rewardedAd.OnAdRewarded += HandleUserEarnedReward;
         rewardedAd.OnAdLeavingApplication += HandleOnRewardAdleavingApp;
+        OnAdLoad?.Invoke(this, new AdLoadEventArgs() { Message = "VIDEO AD LOAD" });
 
     }
 
@@ -72,6 +75,8 @@ public class AdmobAds : MonoBehaviour
     public event EventHandler<EventArgs> OnAdLeavingApplication;
 
     public event EventHandler<EventArgs> OnAdCompleted;
+
+    public event EventHandler<AdLoadEventArgs> OnAdLoad;
 
     /// Rewared events //////////////////////////
 
@@ -141,6 +146,8 @@ public class AdmobAds : MonoBehaviour
         // Called when an ad request failed to load.
         this.bannerAd.OnAdFailedToLoad += this.HandleOnAdFailedToLoad;
 
+        OnAdLoad?.Invoke(this, new AdLoadEventArgs() { Message = "BANNER AD LOAD" });
+
         AdRequest request = new AdRequest.Builder().Build();
 
         this.bannerAd.LoadAd(request);
@@ -171,6 +178,7 @@ public class AdmobAds : MonoBehaviour
         // Called when the ad click caused the user to leave the application.
         this.interstitial.OnAdLeavingApplication += this.HandleOnAdLeavingApplication;
 
+        OnAdLoad?.Invoke(this, new AdLoadEventArgs() { Message = "INTERSTITIAL AD LOAD" });
         AdRequest request = new AdRequest.Builder().Build();
 
         this.interstitial.LoadAd(request);
@@ -217,4 +225,7 @@ public class AdmobAds : MonoBehaviour
 
     #endregion
 
-}
+} public class AdLoadEventArgs : EventArgs
+    {
+        public string Message { get; set; }
+    }
