@@ -100,7 +100,7 @@ public class BubbleController : MonoBehaviour
         bubblePopCountr++;
         PlayerPrefs.SetInt(DataNames.TOTAL_TAP_COUNT.ToString(), (int)data.totalBubblesPopped);
 
-        if (data.currentBubblePopped%10 == 0 )
+        if (data.currentBubblePopped%100 == 0 )
         {
             uiController.ShowMileStoneanimation();
         }
@@ -152,12 +152,12 @@ public class BubbleController : MonoBehaviour
             break;
         }
 
-        if(levelCounter >= MAX_AD_LVL_COUNT)
-        {
-            AdmobAds.instance.ShowInterstitialAd();
-            Debug.Log("SHOW ADS");
-            levelCounter = 0;
-        }
+       // if(levelCounter >= MAX_AD_LVL_COUNT)
+       // {
+           // AdmobAds.instance.ShowInterstitialAd();
+           // Debug.Log("SHOW ADS");
+            //levelCounter = 0;
+      //  }
 
         yield return null;
     }

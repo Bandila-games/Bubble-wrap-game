@@ -5,12 +5,12 @@ using System;
 
 public class AdmobAds : MonoBehaviour
 {
-    string GameID = "ca-app-pub-2461583365581204~8805575646";
+    string GameID = "ca-app-pub-3332955522983001~5987301614";
 
     // Sample ads : replace them with the actual ad ids
-    string bannerAdId = "ca-app-pub-2461583365581204/9989814744";
-    string InterstitialAdID = "ca-app-pub-2461583365581204/6730254257";
-    string rewarded_Ad_ID = "ca-app-pub-2461583365581204/4622788059";
+    string bannerAdId = "ca-app-pub-3940256099942544/6300978111";
+    string InterstitialAdID = "ca-app-pub-3940256099942544/1033173712";
+    string rewarded_Ad_ID = "ca-app-pub-3332955522983001/4141002940";
 
 
     public BannerView bannerAd;

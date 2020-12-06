@@ -9,5 +9,11 @@ public class PlayerBubbleGameData : ScriptableObject
     public uint uid;
     public uint totalBubblesPopped;
     public uint currentBubblePopped = 0;
+
+    [ContextMenu("RESET")]
+    public void ResetCache()
+    {
+        PlayerPrefs.SetInt(DataNames.TOTAL_TAP_COUNT.ToString(), 0);
+    }
 }
 

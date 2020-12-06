@@ -163,9 +163,9 @@ namespace Bunity
             while(true)
             {
 
-                yield return new WaitForSeconds(30);
-                AdmobAds.instance.requestInterstital();
-                AdmobAds.instance.loadRewardVideo();
+                yield return new WaitForSeconds(20);
+               // AdmobAds.instance.requestInterstital();
+                //AdmobAds.instance.loadRewardVideo();
                 AdmobAds.instance.reqBannerAd();                
 
             }
