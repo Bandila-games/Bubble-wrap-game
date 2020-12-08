@@ -8,8 +8,8 @@ public class AdmobAds : MonoBehaviour
     string GameID = "ca-app-pub-3332955522983001~5987301614";
 
     // Sample ads : replace them with the actual ad ids
-    string bannerAdId = "ca-app-pub-3940256099942544/6300978111";
-    string InterstitialAdID = "ca-app-pub-3940256099942544/1033173712";
+    string bannerAdId = "ca-app-pub-3332955522983001/5282732211";
+    string InterstitialAdID = "ca-app-pub-3332955522983001/3238984816";
     string rewarded_Ad_ID = "ca-app-pub-3332955522983001/4141002940";
 
 
