@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
 namespace Bunity
 {
@@ -15,6 +18,7 @@ namespace Bunity
         //Test
         [SerializeField] public PlayerBubbleGameData data;
         [SerializeField] public BubbleGameConfig gameConfig;
+        //[SerializeField] public GPGLeaderBoards leaderboards;
 
        // [SerializeField] public Canvas debugcanvas = null;
        // [SerializeField] public Transform debugImage = null;
@@ -28,6 +32,9 @@ namespace Bunity
             set { _gameManager = value; }
         }
 
+        public static PlayGamesPlatform platform;
+        public bool IsConnectedToPlayServices = false;
+
         private void Awake()
         {
        
@@ -35,8 +42,6 @@ namespace Bunity
 
         private void Start()
         {
-         //   debugcanvas.sortingOrder = -1;
-         //   debugImage.gameObject.SetActive(true);
 
             if (uiController == null) {uiController = GameObject.Find("BubbleGameUI").GetComponent<BubbleUIController>(); }
             uiController.HideGameElements(false);
@@ -56,57 +61,210 @@ namespace Bunity
                    
                 }));
             });
+            uiController.scoreButton.SetButtonEnable(true);
+
+            uiController.scoreButton.AddListenerToButton(() => {
+
+                OpenLeaderBoards();
+            });
 
             if (gameManager == null)
             {
                 gameManager = this;
+                                                 
             }
             else
             {
                 Destroy(this.gameObject);
             }
 
-        //    AdmobAds.instance.OnAdFailedToLoad += Instance_OnAdFailedToLoad;
-        //    AdmobAds.instance.OnAdLoaded += Instance_OnAdLoaded;
-        //    AdmobAds.instance.OnAdStarted += Instance_OnAdStarted;
-       //     AdmobAds.instance.OnAdLoad += Instance_OnAdLoad;
+            data.On_100_Popped += SetAchievements;
+            data.On_500_Popped += SetAchievements;
+            data.On_1000_Popped += SetAchievements;
+            data.On_3000_Popped += SetAchievements;
+            data.On_5000_Popped += SetAchievements;
+            data.On_10000_Popped += SetAchievements;
+         
+            PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+                       .RequestIdToken()
+                       .RequestServerAuthCode(false)
+                       .Build();
+            PlayGamesPlatform.InitializeInstance(config);
+            PlayGamesPlatform.DebugLogEnabled = true;
+            platform = PlayGamesPlatform.Activate();
+
+            ConnectToPlayServices();
 
             StartCoroutine(loadAds());
+            Sound.Soundplayer.PlayAudio(AudioLibrary.BGM_NORMAL,Sound.SoundSourceType.BGM);
+            Sound.Soundplayer.SetSourceVolume(Sound.SoundSourceType.BGM, 0.6f);
             // Sceneloader.Instance.Test();
         }
 
-        private void Instance_OnAdLoad(object sender, AdLoadEventArgs e)
+        #region GPG
+        public void ConnectToPlayServices()
         {
-            StartCoroutine(debugAds(e.Message));
+            PlayGamesPlatform.Instance.Authenticate((f, s) => {
+
+                Debug.Log("==============" + f);
+                Debug.Log("============" + s);
+
+
+                uiController.scoreButton.SetButtonEnable(f);
+
+                IsConnectedToPlayServices = f;
+
+                if (IsConnectedToPlayServices)
+                {
+                    Social.ReportScore(data.totalBubblesPopped, GPGSIds.leaderboard_pushpop_leaderboard, (isSuccess) =>
+                    {
+                        if (!isSuccess) Debug.LogError("[GPGLEADERBOARDS]: UNABLE TO POST HIGHSCORE");
+                         
+                    });
+                    SetAchievements();
+                    Debug.Log("======================OPEN");                   
+                }
+
+                else
+                {
+                    PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, (isLoggedIn) => {
+                        Debug.Log("==============again" + isLoggedIn);
+                       
+
+
+                        uiController.scoreButton.SetButtonEnable(isLoggedIn == SignInStatus.Success);
+                        IsConnectedToPlayServices = isLoggedIn == SignInStatus.Success;
+
+                        if (IsConnectedToPlayServices)
+                        {
+                            Social.ReportScore(data.totalBubblesPopped, GPGSIds.leaderboard_pushpop_leaderboard, (isSuccess) =>
+                            {
+                                if (!isSuccess) Debug.LogError("[GPGLEADERBOARDS]: UNABLE TO POST HIGHSCORE");
+
+                            });
+
+                            SetAchievements();
+                        
+                        }
+                    });
+                 
+                }
+
+            }, true);
+
+
         }
 
-        private void Instance_OnAdStarted(object sender, System.EventArgs e)
+       
+        //TODO MOVE TO ANOTHER CLASS
+        public void SetAchievements()
         {
-            StartCoroutine(debugAds("Add started succesfully"));
+            if (PlayerPrefs.HasKey(GPGSIds.achievement_popper_starter) == false)
+            {
+                PlayerPrefs.SetInt(GPGSIds.achievement_popper_starter, 0);
+                PlayerPrefs.SetInt(GPGSIds.achievement_junior_popper, 0);
+                PlayerPrefs.SetInt(GPGSIds.achievement_casual_popper, 0);
+                PlayerPrefs.SetInt(GPGSIds.achievement_regular_popper, 0);
+                PlayerPrefs.SetInt(GPGSIds.achievement_senior_popper, 0);
+                PlayerPrefs.SetInt(GPGSIds.achievement_hardcore_popper, 0);
+            }
+
+            bool popperStarterAlreadyUnlocked = PlayerPrefs.GetInt(GPGSIds.achievement_popper_starter) == 1;
+            if (!popperStarterAlreadyUnlocked)
+            {   if(data.totalBubblesPopped >= 100)
+                {
+                    Social.ReportProgress(GPGSIds.achievement_popper_starter,
+                                     100.0f,
+                                     (isSuccess) =>
+                                     {
+                                         PlayerPrefs.SetInt(GPGSIds.achievement_popper_starter, 1);
+                                     });
+                }               
+            }
+            bool popperJuniorAlreadyUnlocked = PlayerPrefs.GetInt(GPGSIds.achievement_junior_popper) == 1;
+            if (!popperJuniorAlreadyUnlocked)
+            {
+                if (data.totalBubblesPopped >= 500)
+                {
+                    Social.ReportProgress(GPGSIds.achievement_junior_popper,
+                                     100.0f,
+                                     (isSuccess) =>
+                                     {
+                                         PlayerPrefs.SetInt(GPGSIds.achievement_junior_popper, 1);
+                                     });
+                }
+            }
+            bool poppercasualAlreadyUnlocked = PlayerPrefs.GetInt(GPGSIds.achievement_casual_popper) == 1;
+            if (!poppercasualAlreadyUnlocked)
+            {
+                if (data.totalBubblesPopped >= 1000)
+                {
+                    Social.ReportProgress(GPGSIds.achievement_casual_popper,
+                                     100.0f,
+                                     (isSuccess) =>
+                                     {
+                                         PlayerPrefs.SetInt(GPGSIds.achievement_casual_popper, 1);
+                                     });
+                }
+            }
+            bool popperRegularAlreadyUnlocked = PlayerPrefs.GetInt(GPGSIds.achievement_regular_popper) == 1;
+            if (!popperRegularAlreadyUnlocked)
+            {
+                if (data.totalBubblesPopped >= 3000)
+                {
+                    Social.ReportProgress(GPGSIds.achievement_regular_popper,
+                                     100.0f,
+                                     (isSuccess) =>
+                                     {
+                                         PlayerPrefs.SetInt(GPGSIds.achievement_regular_popper, 1);
+                                     });
+                }
+            }
+            bool popperSeniourAlreadyUnlocked = PlayerPrefs.GetInt(GPGSIds.achievement_senior_popper) == 1;
+            if (!popperSeniourAlreadyUnlocked)
+            {
+                if (data.totalBubblesPopped >= 5000)
+                {
+                    Social.ReportProgress(GPGSIds.achievement_senior_popper,
+                                     100.0f,
+                                     (isSuccess) =>
+                                     {
+                                         PlayerPrefs.SetInt(GPGSIds.achievement_senior_popper,1);
+                                     });
+                }
+            }
+            bool popperHardcoreAlreadyUnlocked = PlayerPrefs.GetInt(GPGSIds.achievement_hardcore_popper) == 1;
+            if (!popperStarterAlreadyUnlocked)
+            {
+                if (data.totalBubblesPopped >= 10000)
+                {
+                    Social.ReportProgress(GPGSIds.achievement_hardcore_popper,
+                                     100.0f,
+                                     (isSuccess) =>
+                                     {
+                                         PlayerPrefs.SetInt(GPGSIds.achievement_hardcore_popper, 1);
+                                     });
+                }
+            }
         }
 
-        private void Instance_OnAdLoaded(object sender, System.EventArgs e)
+        public void OpenLeaderBoards()
         {
-            StartCoroutine(debugAds("Ad loaded succesfully"));
-        }
+            Debug.Log("===========================OPEN LEADERBOARDS CALLED");
 
-        private void Instance_OnAdFailedToLoad(object sender, GoogleMobileAds.Api.AdFailedToLoadEventArgs e)
-        {
-            StartCoroutine(debugAds(e.Message));
-        }
+            if (IsConnectedToPlayServices)
+            {
+                Social.ReportScore(data.totalBubblesPopped, GPGSIds.leaderboard_pushpop_leaderboard, (isSuccess) =>
+                {
+                    if (!isSuccess) Debug.LogError("[GPGLEADERBOARDS]: UNABLE TO POST HIGHSCORE");
 
-        public void ShowDebug(bool isShow)
-        {
-           // debugcanvas.sortingOrder = isShow ? 3 : -1;
+                });
+                Debug.Log("======================OPEN");
+            }
+            Social.ShowLeaderboardUI();
         }
+        #endregion
 
-        IEnumerator debugAds(string message)
-        {
-
-          //  Text mt = Instantiate(debugText, debugImage);
-           // mt.text = message;
-            yield return null;
-        }
 
         private IEnumerator InitializeGame(UnityAction action)
         {

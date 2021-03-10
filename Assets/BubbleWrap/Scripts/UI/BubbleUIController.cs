@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Bunity;
 
 public class BubbleUIController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class BubbleUIController : MonoBehaviour
     [SerializeField] public Button playButton = null;
     [SerializeField] public Button resetButton = null;
     [SerializeField] public Button homeButton = null;
+
+    [SerializeField] public ButtonBehaviour scoreButton = null;
 
     [SerializeField] public RectTransform menu = null;
     [SerializeField] public RectTransform gameUI = null;
@@ -44,6 +47,7 @@ public class BubbleUIController : MonoBehaviour
 
     }
 
+    
     public void SetTapCounterTxt(string txt)
     {
         tapCounterLbl.text = txt;

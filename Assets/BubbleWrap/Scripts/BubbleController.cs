@@ -96,16 +96,17 @@ public class BubbleController : MonoBehaviour
     public void AddPoint()
     {
         data.currentBubblePopped += 1;
-        data.totalBubblesPopped += 1;
+        //data.totalBubblesPopped += 1;
+        data.AddTotal();
         bubblePopCountr++;
-        PlayerPrefs.SetInt(DataNames.TOTAL_TAP_COUNT.ToString(), (int)data.totalBubblesPopped);
+        //PlayerPrefs.SetInt(DataNames.TOTAL_TAP_COUNT.ToString(), (int)data.totalBubblesPopped);
 
         if (data.currentBubblePopped%100 == 0 )
         {
             uiController.ShowMileStoneanimation();
         }
 
-        Debug.Log("HEHE");
+
         uiController.SetTapCounterTxt(data.currentBubblePopped.ToString());
 
         if(bubblePopCountr >= bubbleTotal)

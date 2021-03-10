@@ -1,0 +1,9 @@
+lastUpgrade=01012
+proj.pluginVersion=0.10.12
+proj.AppId=133278912037
+and.BundleId=com.Bandila.BubbleWrapSimulator
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e133278912037%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.Bandila.BubbleWrapSimulator%3c%2fstring%3e%0d%0a++%3c%21--achievement+Popper+Starter--%3e%0d%0a++%3cstring+name%3d%22achievement_popper_starter%22+translatable%3d%22false%22%3eCgkIpZyrwPADEAIQBQ%3c%2fstring%3e%0d%0a++%3c%21--achievement+Junior+Popper--%3e%0d%0a++%3cstring+name%3d%22achievement_junior_popper%22+translatable%3d%22false%22%3eCgkIpZyrwPADEAIQBA%3c%2fstring%3e%0d%0a++%3c%21--achievement+Casual+Popper--%3e%0d%0a++%3cstring+name%3d%22achievement_casual_popper%22+translatable%3d%22false%22%3eCgkIpZyrwPADEAIQBg%3c%2fstring%3e%0d%0a++%3c%21--achievement+Regular+Popper--%3e%0d%0a++%3cstring+name%3d%22achievement_regular_popper%22+translatable%3d%22false%22%3eCgkIpZyrwPADEAIQBw%3c%2fstring%3e%0d%0a++%3c%21--achievement+Senior+Popper--%3e%0d%0a++%3cstring+name%3d%22achievement_senior_popper%22+translatable%3d%22false%22%3eCgkIpZyrwPADEAIQCA%3c%2fstring%3e%0d%0a++%3c%21--achievement+Hardcore+Popper--%3e%0d%0a++%3cstring+name%3d%22achievement_hardcore_popper%22+translatable%3d%22false%22%3eCgkIpZyrwPADEAIQCQ%3c%2fstring%3e%0d%0a++%3c%21--leaderboard+PushPop+Leaderboard--%3e%0d%0a++%3cstring+name%3d%22leaderboard_pushpop_leaderboard%22+translatable%3d%22false%22%3eCgkIpZyrwPADEAIQCg%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=133278912037-n73m9nsrievgqqd31nuobr2vlv0fmeta.apps.googleusercontent.com
+android.SetupDone=true

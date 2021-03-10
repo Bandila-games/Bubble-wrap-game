@@ -16,7 +16,7 @@ MonoBehaviour:
   sfx_volume: 1
   audioClips:
   - type: 0
-    clip: {fileID: 8300000, guid: 60127ee27df58ea4880a53bf6696494b, type: 3}
+    clip: {fileID: 8300000, guid: 535ae2c47be666e4284daa6064d64069, type: 3}
   - type: 1
     clip: {fileID: 8300000, guid: 231cf12057545ff4f9f3b8c6711f0045, type: 3}
   - type: 2

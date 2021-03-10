@@ -150,6 +150,7 @@ public class AdmobAds : MonoBehaviour
 
         AdRequest request = new AdRequest.Builder().Build();
 
+        this.bannerAd.SetPosition(AdPosition.Bottom);
         this.bannerAd.LoadAd(request);
 
     }
